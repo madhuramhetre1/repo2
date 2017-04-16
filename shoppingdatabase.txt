@@ -1,0 +1,90 @@
+mysql> create database shoppingdatabase;
+Query OK, 1 row affected (0.24 sec)
+
+mysql> use shoppingdatabase;
+Database changed
+
+
+CREATE TABLE `user` (
+  `userid` int(11) NOT NULL AUTO_INCREMENT,
+  `username` varchar(20),
+  `password` varchar(40),
+  `address` varchar(150),
+  `mobileno` int(20),
+  PRIMARY KEY (`userid`)
+);
+
+
+
+CREATE TABLE `order` (
+  `orderid` int(11) NOT NULL AUTO_INCREMENT,
+  `shipaddress` varchar(100),
+  `totalprice` decimal(10,0),
+  `shipdate` date,
+  PRIMARY KEY (`orderid`)
+);
+
+
+CREATE TABLE `product` (
+  `productid` int(11) NOT NULL AUTO_INCREMENT,
+  `productname` varchar(20),
+  `quantity` int(20),
+  `price` decimal(10,0),
+  PRIMARY KEY (`productid`)
+);
+
+
+ALTER TABLE order 
+ADD COLUMN productid int not null AFTER shipdate;
+
+ALTER TABLE order
+ADD FOREIGN KEY fk_product(productid)
+REFERENCES product(productid);
+
+ALTER TABLE order 
+ADD COLUMN userid int not null AFTER shipdate;
+
+ALTER TABLE order
+ADD FOREIGN KEY fk_user(userid)
+REFERENCES user(userid);
+
+ALTER TABLE product 
+ADD COLUMN orderid int not null AFTER price;
+
+ALTER TABLE product
+ADD FOREIGN KEY fk_order(orderid)
+REFERENCES order(orderid);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
